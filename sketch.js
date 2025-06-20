@@ -22,16 +22,15 @@ let sliderSimilarityA, sliderSmoothA;
 let sliderSimilarityB, sliderSmoothB;
 let sliderSimilarityC, sliderSmoothC;
 
-let simVals = [0, 25, 55];  // 55
-let smoothVals = [0, 4, 8]; // 8
+let simVals = [0, 25, 55];  // 55 // STARTING VALUES A TO C
+let smoothVals = [0, 4, 8]; // 8 // STARTING VALUES A TO C
 
 
 let colOptionIndex = 0;
 
 let displaySliders = false;
 
-const startingSimilarityValue = 55; // 0 - 255
-const startingSmoothnessyValue = 8; // 0 - 255
+
 
 let prevMousePos = [0, 0];
 
@@ -97,22 +96,6 @@ function setup() {
   // create a shader object using the vertex shader and fragment shader strings
   theShader = loadShader('basic.vert', 'basic.frag');
 
-  // // Create a slider and place it at the top of the canvas.
-  // sliderSimilarity = createSlider(0, 100, startingSimilarityValue);
-  // sliderSimilarity.position(width, 10);
-  // sliderSimilarity.size(80);
-  // simVal = map(sliderSimilarity.value(), 0, 255, 0., 0.5);
-  // sliderSimilarity.input(setSimilarity);
-
-  // sliderSmooth = createSlider(0, 20, startingSmoothnessyValue);
-  // sliderSmooth.position(width, 30);
-  // sliderSmooth.size(80);
-  // smoothVal = map(sliderSmooth.value(), 0, 255, 0., 0.5);
-  // sliderSmooth.input(setSmoothness);
-
-  // sliderSimilarity.hide();
-  // sliderSmooth.hide();
-
   /// sliders color A [0]
   // Create a slider and place it at the top of the canvas.
   sliderSimilarityA = createSlider(0, 100, simVals[0]);
@@ -133,13 +116,13 @@ function setup() {
     /// sliders color B[1]
   // Create a slider and place it at the top of the canvas.
   sliderSimilarityB = createSlider(0, 100, simVals[1]);
-  sliderSimilarityB.position(width, 100);
+  sliderSimilarityB.position(width, 140);
   sliderSimilarityB.size(80);
   simVals[1] = map(sliderSimilarityB.value(), 0, 255, 0., 0.5);
   sliderSimilarityB.input(setSimilarityB);
 
   sliderSmoothB = createSlider(0, 20, smoothVals[1]);
-  sliderSmoothB.position(width, 180);
+  sliderSmoothB.position(width, 170);
   sliderSmoothB.size(80);
   smoothVals[1] = map(sliderSmoothB.value(), 0, 255, 0., 0.5);
   sliderSmoothB.input(setSmoothnessB);
@@ -150,13 +133,13 @@ function setup() {
       /// sliders color C[2]
   // Create a slider and place it at the top of the canvas.
   sliderSimilarityC = createSlider(0, 100, simVals[2]);
-  sliderSimilarityC.position(width, 200);
+  sliderSimilarityC.position(width, 230);
   sliderSimilarityC.size(80);
   simVals[2] = map(sliderSimilarityC.value(), 0, 255, 0., 0.5);
   sliderSimilarityC.input(setSimilarityC);
 
   sliderSmoothC = createSlider(0, 20, smoothVals[2]);
-  sliderSmoothC.position(width, 280);
+  sliderSmoothC.position(width, 260);
   sliderSmoothC.size(80);
   smoothVals[2] = map(sliderSmoothC.value(), 0, 255, 0., 0.5);
   sliderSmoothC.input(setSmoothnessC);
@@ -204,7 +187,7 @@ function draw() {
   resetShader()
 
   getFingerPosition()
-  displayPoints()
+
 
   drawInterAreas();
 }
@@ -250,13 +233,6 @@ function setKeyColor() {
 }
 
 function keyPressed() {
-  if (key === 'j' || key === 'J') {
-    keyColor = [0.0, 0.0, 1.0];
-  }
-
-  if (key === 'd' || key === 'D') {
-    setKeyColor();
-  }
 
   if (key === 's' || key === 'S') {
     displaySliders = !displaySliders;
@@ -277,14 +253,6 @@ function keyPressed() {
     
     }
   }
-
-  if (key === 'u' || key === 'U') {
-
-  }
-
-
-
-
 }
 
 function setSimilarity() {
@@ -363,21 +331,6 @@ function getFingerPosition() {
   }
 }
 
-function displayPoints() {
-  // Draw all the tracked hand points
-  for (let i = 0; i < hands.length; i++) {
-    let hand = hands[i];
-    let indexKeypoint = hand.keypoints[8];
-    let mappedX = map(indexKeypoint.x, 0, cam.width, 0, width);
-    let mappedY = map(indexKeypoint.y, 0, cam.height, 0, height);
-    push();
-    // fill(255);
-    // noStroke();
-    // circle(mappedX - width / 2, mappedY - height / 2, diamFingerCircle);
-    pop();
-  }
-
-}
 
 // Callback function for when handPose outputs data
 function gotHands(results) {
