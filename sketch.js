@@ -4,6 +4,8 @@ let theShader;
 // this variable will hold our createGraphics layer
 let shaderTexture;
 
+let logo;
+
 let cam;
 
 let keyColor = [0.058823529411764705, 0.1411764705882353, 0.4];
@@ -55,6 +57,11 @@ const options = {
 function preload() {
   // Load the handPose model
   handPose = ml5.handPose(options);
+
+  logo = loadImage (
+    'whitelogoscale.png'
+  )
+  
 }
 
 
@@ -190,6 +197,13 @@ function draw() {
 
 
   drawInterAreas();
+
+  push();
+  tint(255, 255, 255);
+  texture(logo);
+  translate (width/2 - width/8, 0 + width/4);
+  plane (width/8);
+  pop();
 }
 
 
