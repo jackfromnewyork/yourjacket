@@ -17,7 +17,16 @@ let colOptions = [
 let subCol = colOptions[2];
 
 let sliderSimilarity, sliderSmooth;
-let simVal, smoothVal;
+
+let sliderSimilarityA, sliderSmoothA;
+let sliderSimilarityB, sliderSmoothB;
+let sliderSimilarityC, sliderSmoothC;
+
+let simVals = [0, 25, 55];  // 55
+let smoothVals = [0, 4, 8]; // 8
+
+
+let colOptionIndex = 0;
 
 let displaySliders = false;
 
@@ -88,21 +97,72 @@ function setup() {
   // create a shader object using the vertex shader and fragment shader strings
   theShader = loadShader('basic.vert', 'basic.frag');
 
+  // // Create a slider and place it at the top of the canvas.
+  // sliderSimilarity = createSlider(0, 100, startingSimilarityValue);
+  // sliderSimilarity.position(width, 10);
+  // sliderSimilarity.size(80);
+  // simVal = map(sliderSimilarity.value(), 0, 255, 0., 0.5);
+  // sliderSimilarity.input(setSimilarity);
+
+  // sliderSmooth = createSlider(0, 20, startingSmoothnessyValue);
+  // sliderSmooth.position(width, 30);
+  // sliderSmooth.size(80);
+  // smoothVal = map(sliderSmooth.value(), 0, 255, 0., 0.5);
+  // sliderSmooth.input(setSmoothness);
+
+  // sliderSimilarity.hide();
+  // sliderSmooth.hide();
+
+  /// sliders color A [0]
   // Create a slider and place it at the top of the canvas.
-  sliderSimilarity = createSlider(0, 100, startingSimilarityValue);
-  sliderSimilarity.position(width, 10);
-  sliderSimilarity.size(80);
-  simVal = map(sliderSimilarity.value(), 0, 255, 0., 0.5);
-  sliderSimilarity.input(setSimilarity);
+  sliderSimilarityA = createSlider(0, 100, simVals[0]);
+  sliderSimilarityA.position(width, 50);
+  sliderSimilarityA.size(80);
+  simVals[0] = map(sliderSimilarityA.value(), 0, 255, 0., 0.5);
+  sliderSimilarityA.input(setSimilarityA);
 
-  sliderSmooth = createSlider(0, 20, startingSmoothnessyValue);
-  sliderSmooth.position(width, 30);
-  sliderSmooth.size(80);
-  smoothVal = map(sliderSmooth.value(), 0, 255, 0., 0.5);
-  sliderSmooth.input(setSmoothness);
+  sliderSmoothA = createSlider(0, 20, smoothVals[0]);
+  sliderSmoothA.position(width, 80);
+  sliderSmoothA.size(80);
+  smoothVals[0] = map(sliderSmoothA.value(), 0, 255, 0., 0.5);
+  sliderSmoothA.input(setSmoothnessA);
 
-  sliderSimilarity.hide();
-  sliderSmooth.hide();
+  sliderSimilarityA.hide();
+  sliderSmoothA.hide();
+
+    /// sliders color B[1]
+  // Create a slider and place it at the top of the canvas.
+  sliderSimilarityB = createSlider(0, 100, simVals[1]);
+  sliderSimilarityB.position(width, 100);
+  sliderSimilarityB.size(80);
+  simVals[1] = map(sliderSimilarityB.value(), 0, 255, 0., 0.5);
+  sliderSimilarityB.input(setSimilarityB);
+
+  sliderSmoothB = createSlider(0, 20, smoothVals[1]);
+  sliderSmoothB.position(width, 180);
+  sliderSmoothB.size(80);
+  smoothVals[1] = map(sliderSmoothB.value(), 0, 255, 0., 0.5);
+  sliderSmoothB.input(setSmoothnessB);
+
+  sliderSimilarityB.hide();
+  sliderSmoothB.hide();
+
+      /// sliders color C[2]
+  // Create a slider and place it at the top of the canvas.
+  sliderSimilarityC = createSlider(0, 100, simVals[2]);
+  sliderSimilarityC.position(width, 200);
+  sliderSimilarityC.size(80);
+  simVals[2] = map(sliderSimilarityC.value(), 0, 255, 0., 0.5);
+  sliderSimilarityC.input(setSimilarityC);
+
+  sliderSmoothC = createSlider(0, 20, smoothVals[2]);
+  sliderSmoothC.position(width, 280);
+  sliderSmoothC.size(80);
+  smoothVals[2] = map(sliderSmoothC.value(), 0, 255, 0., 0.5);
+  sliderSmoothC.input(setSmoothnessC);
+
+  sliderSimilarityC.hide();
+  sliderSmoothC.hide();
 
   describe('Sphere broken up into a square grid with a gradient in each grid.');
 
@@ -131,8 +191,8 @@ function draw() {
 
   theShader.setUniform('keyColor', keyColor);
   theShader.setUniform('subColor', subCol);
-  theShader.setUniform('similarity', simVal);
-  theShader.setUniform('smoothness', smoothVal);
+  theShader.setUniform('similarity', simVals[colOptionIndex]);
+  theShader.setUniform('smoothness', smoothVals[colOptionIndex]);
 
   shader(theShader);
   // add a sphere using the texture
@@ -201,16 +261,25 @@ function keyPressed() {
   if (key === 's' || key === 'S') {
     displaySliders = !displaySliders;
     if (displaySliders) {
-      sliderSimilarity.show();
-      sliderSmooth.show();
+      sliderSimilarityA.show();
+      sliderSmoothA.show();
+      sliderSimilarityB.show();
+      sliderSmoothB.show();
+      sliderSimilarityC.show();
+      sliderSmoothC.show();
     } else {
-      sliderSimilarity.hide();
-      sliderSmooth.hide();
+      sliderSimilarityA.hide();
+      sliderSmoothA.hide();
+      sliderSimilarityB.hide();
+      sliderSmoothB.hide();
+      sliderSimilarityC.hide();
+      sliderSmoothC.hide();
+    
     }
   }
 
   if (key === 'u' || key === 'U') {
-   
+
   }
 
 
@@ -229,6 +298,41 @@ function setSmoothness() {
 }
 
 
+/// SHAME ON ME
+function setSimilarityA() {
+  simVals[0] = map(sliderSimilarityA.value(), 0, 255, 0., 0.5);
+  console.log(`Similarity A value: ${sliderSimilarityA.value()}`);
+}
+
+function setSmoothnessA() {
+  smoothVals[0] = map(sliderSmoothA.value(), 0, 255, 0., 0.5);
+  console.log(`Smoothness A value: ${sliderSmoothA.value()}`);
+}
+
+function setSimilarityB() {
+  simVals[1] = map(sliderSimilarityB.value(), 0, 255, 0., 0.5);
+  console.log(`Similarity B value: ${sliderSimilarityB.value()}`);
+}
+
+function setSmoothnessB() {
+  smoothVals[1] = map(sliderSmoothB.value(), 0, 255, 0., 0.5);
+  console.log(`Smoothness B value: ${sliderSmoothB.value()}`);
+}
+
+function setSimilarityC() {
+  simVals[2] = map(sliderSimilarityC.value(), 0, 255, 0., 0.5);
+  console.log(`Similarity C value: ${sliderSimilarityC.value()}`);
+}
+
+function setSmoothnessC() {
+  smoothVals[2] = map(sliderSmoothC.value(), 0, 255, 0., 0.5);
+  console.log(`Smoothness C value: ${sliderSmoothC.value()}`);
+}
+
+
+
+
+
 /// ML5
 
 function getFingerPosition() {
@@ -236,21 +340,23 @@ function getFingerPosition() {
     let hand = hands[i];
     let indexKeypoint = hand.keypoints[8];
     let mappedX = map(indexKeypoint.x, 0, cam.width, 0, width);
-    let mappedY = map(indexKeypoint.y, 0, cam.height, -displayOffset/2, height + displayOffset/2);
+    let mappedY = map(indexKeypoint.y, 0, cam.height, -displayOffset / 2, height + displayOffset / 2);
 
-    const fingerX = mappedX - width/2;
+    const fingerX = mappedX - width / 2;
     const fingerY = mappedY - height / 2;
 
     push();
-    fill(0, 255, 255);
+    // fill(0, 255, 255);
+    fill(subCol[0]*255,subCol[1]*255, subCol[2]*255 )
     noStroke();
-    circle(fingerX , fingerY, diamFingerCircle);
+    circle(fingerX, fingerY, diamFingerCircle);
     pop();
 
     for (let i = 0; i < coordsAreas.length; i++) {
-      if (fingerX > coordsAreas[i].x - width/2 && fingerX < (coordsAreas[i].x  - width/2 + coordsAreas[i].w)
-        && fingerY > coordsAreas[i].y - coordsAreas[i].h /2 - height/2 && fingerY < (coordsAreas[i].y - height/2 + coordsAreas[i].h)) {
+      if (fingerX > coordsAreas[i].x - width / 2 && fingerX < (coordsAreas[i].x - width / 2 + coordsAreas[i].w)
+        && fingerY > coordsAreas[i].y - coordsAreas[i].h / 2 - height / 2 && fingerY < (coordsAreas[i].y - height / 2 + coordsAreas[i].h)) {
         subCol = colOptions[i];
+        colOptionIndex = i;
       }
     }
 
@@ -291,9 +397,9 @@ function drawInterAreas() {
 
 }
 
-function resetSize(){
+function resetSize() {
   resizeCanvas(windowWidth, windowHeight);
-  actualHeight = windowWidth*0.75;
+  actualHeight = windowWidth * 0.75;
   displayOffset = actualHeight - windowHeight
 
   interAreaSize = {
@@ -302,9 +408,9 @@ function resetSize(){
     margin: height / 8
   }
 
-  for (let i = 0; i < coordsAreas.length; i++) {  
-    coordsAreas[i].w =  interAreaSize.w;
-    coordsAreas[i].h= interAreaSize.h;
+  for (let i = 0; i < coordsAreas.length; i++) {
+    coordsAreas[i].w = interAreaSize.w;
+    coordsAreas[i].h = interAreaSize.h;
 
     coordsAreas[i].x = 100;
     coordsAreas[i].y = (interAreaSize.h * i) + interAreaSize.h / 2 + interAreaSize.margin;
