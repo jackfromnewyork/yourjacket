@@ -11,8 +11,8 @@ let cam;
 let keyColor = [0.058823529411764705, 0.1411764705882353, 0.4];
 
 let colOptions = [
-  [1.0, 1.0, 0, 0.5], // yellow
-  [1.0, 0, 0.0, 0.5], // magenta
+  [0.18, 0.54, 0.34, 0.5], // sea green
+  [0.871, 0.192, 0.388, 0.5], // cerise
   [1.0, 1.0, 1.0, 0.5], // white
 ];
 
@@ -24,7 +24,7 @@ let sliderSimilarityA, sliderSmoothA;
 let sliderSimilarityB, sliderSmoothB;
 let sliderSimilarityC, sliderSmoothC;
 
-let simVals = [0, 25, 55];  // 55 // STARTING VALUES A TO C
+let simVals = [63, 64, 55];  // 55 // STARTING VALUES A TO C
 let smoothVals = [0, 4, 8]; // 8 // STARTING VALUES A TO C
 
 
@@ -61,6 +61,10 @@ function preload() {
   logo = loadImage (
     'whitelogoscale.png'
   )
+
+  title = loadImage (
+    'yourjacket_logo.png'
+  )
   
 }
 
@@ -88,8 +92,12 @@ function setup() {
       w: interAreaSize.w,
       h: interAreaSize.h,
 
-      x: 100,
-      y: (interAreaSize.h * i) + interAreaSize.h / 2 + interAreaSize.margin
+      // x: 100,
+      // y: (interAreaSize.h * i) + interAreaSize.h / 2 + interAreaSize.margin
+
+      x : i * interAreaSize.w,
+      y : - height/2
+
     }
 
     console.log(i, thisCoords.x)
@@ -97,6 +105,8 @@ function setup() {
     coordsAreas.push(thisCoords);
 
   }
+
+  console.log(coordsAreas);
 
   angleMode(DEGREES);
 
@@ -202,6 +212,13 @@ function draw() {
   tint(255, 255, 255);
   texture(logo);
   translate (width/2 - width/8, 0 + width/4);
+  plane (width/8);
+  pop();
+
+  push();
+  tint(255, 255, 255);
+  texture(title);
+  translate (width/2 - width/8, 0 + width/4.7);
   plane (width/8);
   pop();
 }
@@ -357,7 +374,8 @@ function drawInterAreas() {
 
     push();
     fill(colOptions[i][0] * 255, colOptions[i][1] * 255, colOptions[i][2] * 255, colOptions[i][3] * 255);
-    translate(coordsAreas[i].x + interAreaSize.w / 2 - width / 2, coordsAreas[i].y - height / 2);
+    // translate(coordsAreas[i].x + interAreaSize.w / 2 - width / 2, coordsAreas[i].y - height / 2);
+    translate(coordsAreas[i].x, coordsAreas[i].y);
     plane(interAreaSize.w, interAreaSize.h);
     pop();
   }
@@ -375,13 +393,13 @@ function resetSize() {
     margin: height / 8
   }
 
-  for (let i = 0; i < coordsAreas.length; i++) {
-    coordsAreas[i].w = interAreaSize.w;
-    coordsAreas[i].h = interAreaSize.h;
+  // for (let i = 0; i < coordsAreas.length; i++) {
+  //   coordsAreas[i].w = interAreaSize.w;
+  //   coordsAreas[i].h = interAreaSize.h;
 
-    coordsAreas[i].x = 100;
-    coordsAreas[i].y = (interAreaSize.h * i) + interAreaSize.h / 2 + interAreaSize.margin;
-  }
+  //   coordsAreas[i].x = 100;
+  //   coordsAreas[i].y = (interAreaSize.h * i) + interAreaSize.h / 2 + interAreaSize.margin;
+  // }
 
 }
 
