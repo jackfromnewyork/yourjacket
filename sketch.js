@@ -24,8 +24,8 @@ let sliderSimilarityA, sliderSmoothA;
 let sliderSimilarityB, sliderSmoothB;
 let sliderSimilarityC, sliderSmoothC;
 
-let simVals = [63, 64, 55];  // 55 // STARTING VALUES A TO C
-let smoothVals = [0, 4, 8]; // 8 // STARTING VALUES A TO C
+let simVals = [63, 49, 49];  // 55 // STARTING VALUES A TO C
+let smoothVals = [2, 2, 2]; // 8 // STARTING VALUES A TO C
 
 
 let colOptionIndex = 0;
