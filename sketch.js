@@ -340,11 +340,18 @@ function getFingerPosition() {
     pop();
 
     for (let i = 0; i < coordsAreas.length; i++) {
-      if (fingerX > coordsAreas[i].x - width / 2 && fingerX < (coordsAreas[i].x - width / 2 + coordsAreas[i].w)
-        && fingerY > coordsAreas[i].y - coordsAreas[i].h / 2 - height / 2 && fingerY < (coordsAreas[i].y - height / 2 + coordsAreas[i].h)) {
+      if (fingerX > coordsAreas[i].x - coordsAreas[i].w / 2 && fingerX < (coordsAreas[i].x - coordsAreas[i].w / 2 + coordsAreas[i].w)
+        && fingerY > coordsAreas[i].y - coordsAreas[i].h / 2 && fingerY < (coordsAreas[i].y + coordsAreas[i].h / 2)) {
         subCol = colOptions[i];
         colOptionIndex = i;
       }
+
+      // debug check points
+      // push();
+      // fill(255, 0, 0);
+      // circle(coordsAreas[i].x - coordsAreas[i].w / 2, coordsAreas[i].y - coordsAreas[i].h / 2 , 20)
+      // circle(coordsAreas[i].x - coordsAreas[i].w / 2 + coordsAreas[i].w, coordsAreas[i].y + coordsAreas[i].h / 2 , 20)
+      // pop();
     }
 
   }
@@ -374,7 +381,7 @@ function resetInterAreas() {
   interAreaSize = {
     w: width / 4,
     h: height / 8,
-    margin: height / 16
+    margin: height / 8 // button y
   }
 
   for (let i = 0; i < coordsAreas.length; i++) {
