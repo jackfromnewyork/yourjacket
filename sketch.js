@@ -80,31 +80,19 @@ function setup() {
 
   diamFingerCircle = height / 16;
 
-  interAreaSize = {
-    w: width / 4,
-    h: height / 8,
-    margin: height / 8
-  }
-
   for (let i = 0; i < colOptions.length; i++) {
-
     thisCoords = {
-      w: interAreaSize.w,
-      h: interAreaSize.h,
-
-      // x: 100,
-      // y: (interAreaSize.h * i) + interAreaSize.h / 2 + interAreaSize.margin
-
-      x : i * interAreaSize.w,
-      y : - height/2
-
+      w: 0,
+      h:0,
+      x :0,
+      y : 0
     }
-
     console.log(i, thisCoords.x)
-
     coordsAreas.push(thisCoords);
 
   }
+
+  resetInterAreas();
 
   console.log(coordsAreas);
 
@@ -382,25 +370,28 @@ function drawInterAreas() {
 
 }
 
+function resetInterAreas() {
+  interAreaSize = {
+    w: width / 4,
+    h: height / 8,
+    margin: height / 16
+  }
+
+  for (let i = 0; i < coordsAreas.length; i++) {
+
+    coordsAreas[i].w = interAreaSize.w;
+    coordsAreas[i].h = interAreaSize.h;
+    coordsAreas[i].x = (i * width/3) - width/3;
+    coordsAreas[i].y = - height/2 + interAreaSize.h / 2 + interAreaSize.margin; 
+  }
+}
+
 function resetSize() {
   resizeCanvas(windowWidth, windowHeight);
   actualHeight = windowWidth * 0.75;
   displayOffset = actualHeight - windowHeight
 
-  interAreaSize = {
-    w: width / 4,
-    h: height / 8,
-    margin: height / 8
-  }
-
-  // for (let i = 0; i < coordsAreas.length; i++) {
-  //   coordsAreas[i].w = interAreaSize.w;
-  //   coordsAreas[i].h = interAreaSize.h;
-
-  //   coordsAreas[i].x = 100;
-  //   coordsAreas[i].y = (interAreaSize.h * i) + interAreaSize.h / 2 + interAreaSize.margin;
-  // }
-
+  resetInterAreas();
 }
 
 function windowResized() {
