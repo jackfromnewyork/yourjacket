@@ -11,8 +11,8 @@ let cam;
 let keyColor = [0.058823529411764705, 0.1411764705882353, 0.4];
 
 let colOptions = [
-  [1.0, 1.0, 0, 0.5], // yellow
-  [1.0, 0, 0.0, 0.5], // magenta
+  [0.18, 0.54, 0.34, 0.5], // yellow
+  [0.871, 0.192, 0.388, 0.5], // magenta
   [1.0, 1.0, 1.0, 0.5], // white
 ];
 
@@ -24,7 +24,7 @@ let sliderSimilarityA, sliderSmoothA;
 let sliderSimilarityB, sliderSmoothB;
 let sliderSimilarityC, sliderSmoothC;
 
-let simVals = [0, 25, 55];  // 55 // STARTING VALUES A TO C
+let simVals = [63, 64, 55];  // 55 // STARTING VALUES A TO C
 let smoothVals = [0, 4, 8]; // 8 // STARTING VALUES A TO C
 
 
@@ -60,7 +60,11 @@ function preload() {
 
   logo = loadImage (
     'whitelogoscale.png'
-  )
+ )
+
+ title = loadImage (
+  'yourjacket_logo.png'
+ )
   
 }
 
@@ -202,6 +206,13 @@ function draw() {
   tint(255, 255, 255);
   texture(logo);
   translate (width/2 - width/8, 0 + width/4);
+  plane (width/8);
+  pop();
+
+  push();
+  tint(255, 255, 255);
+  texture(title);
+  translate (width/2 - width/8, 0 + width/4.7);
   plane (width/8);
   pop();
 }
